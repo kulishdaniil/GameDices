@@ -1066,6 +1066,7 @@ void Game(SDL_Renderer*& renderer, Mix_Chunk* ButtonTapSound, Mix_Chunk* DiceRol
 						{
 						case 0:
 						{
+							Mix_HaltChannel(-1);
 							WinQuit = true;
 							quit = true;
 							break;
