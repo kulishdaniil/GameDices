@@ -235,6 +235,8 @@ void Game(SDL_Renderer*& renderer, Mix_Chunk* ButtonTapSound, Mix_Chunk* DiceRol
 	bool LooseQuit = false;
 	bool WinQuit = false;
 	bool Point_Definition = true;
+	bool Opponent1Quit = false;
+	bool Opponent2Quit = false;
 
 	bool YouMove = false;
 	bool OpponentMove_1 = false;
@@ -434,268 +436,322 @@ void Game(SDL_Renderer*& renderer, Mix_Chunk* ButtonTapSound, Mix_Chunk* DiceRol
 				}
 			}
 
+			if (quit == true)
+				break;
+
 			FirstChangeQuit = false;
 			SDL_RenderClear(renderer);
 			Draw_GameFON(renderer, GameFonRect, GameFonTexture);
+			SDL_RenderCopy(renderer, Opponent_turntextTexture, NULL, &Your_turntextRect);
 			SDL_RenderPresent(renderer);
 			SDL_Delay(1000);
-
-			OpponentPoints1_1 = rand() % (6 - 1 + 1) + 1;
-			OpponentPoints2_1 = rand() % (6 - 1 + 1) + 1;
-			OpponentPoints3_1 = rand() % (6 - 1 + 1) + 1;
-			OpponentSumPointsForFirstMove_1 = OpponentPoints1_1 + OpponentPoints2_1 + OpponentPoints3_1;
-
-			switch (OpponentPoints1_1)
-			{
-			case 1:
-			{
-				Mix_PlayChannel(-1, DiceRollingSound, 0);
-				Draw_CubeEdge(renderer, Cube_edge_1_LEFT_Rect, Cube_edge_1_Texture);
-			}; break;
-
-			case 2:
-			{
-				Mix_PlayChannel(-1, DiceRollingSound, 0);
-				Draw_CubeEdge(renderer, Cube_edge_2_LEFT_Rect, Cube_edge_2_Texture);
-			}; break;
-
-			case 3:
-			{
-				Mix_PlayChannel(-1, DiceRollingSound, 0);
-				Draw_CubeEdge(renderer, Cube_edge_3_LEFT_Rect, Cube_edge_3_Texture);
-			}; break;
-
-			case 4:
-			{
-				Mix_PlayChannel(-1, DiceRollingSound, 0);
-				Draw_CubeEdge(renderer, Cube_edge_4_LEFT_Rect, Cube_edge_4_Texture);
-			}; break;
-
-			case 5:
-			{
-				Mix_PlayChannel(-1, DiceRollingSound, 0);
-				Draw_CubeEdge(renderer, Cube_edge_5_LEFT_Rect, Cube_edge_5_Texture);
-			}; break;
-
-			case 6:
-			{
-				Mix_PlayChannel(-1, DiceRollingSound, 0);
-				Draw_CubeEdge(renderer, Cube_edge_6_LEFT_Rect, Cube_edge_6_Texture);
-			}; break;
-			}
-
-			switch (OpponentPoints2_1)
-			{
-			case 1:
-			{
-				Mix_PlayChannel(-1, DiceRollingSound, 0);
-				Draw_CubeEdge(renderer, Cube_edge_1_MID_Rect, Cube_edge_1_Texture);
-			}; break;
-
-			case 2:
-			{
-				Mix_PlayChannel(-1, DiceRollingSound, 0);
-				Draw_CubeEdge(renderer, Cube_edge_2_MID_Rect, Cube_edge_2_Texture);
-			}; break;
-
-			case 3:
-			{
-				Mix_PlayChannel(-1, DiceRollingSound, 0);
-				Draw_CubeEdge(renderer, Cube_edge_3_MID_Rect, Cube_edge_3_Texture);
-			}; break;
-
-			case 4:
-			{
-				Mix_PlayChannel(-1, DiceRollingSound, 0);
-				Draw_CubeEdge(renderer, Cube_edge_4_MID_Rect, Cube_edge_4_Texture);
-			}; break;
-
-			case 5:
-			{
-				Mix_PlayChannel(-1, DiceRollingSound, 0);
-				Draw_CubeEdge(renderer, Cube_edge_6_MID_Rect, Cube_edge_6_Texture);
-			}; break;
-
-			case 6:
-			{
-				Mix_PlayChannel(-1, DiceRollingSound, 0);
-				Draw_CubeEdge(renderer, Cube_edge_6_MID_Rect, Cube_edge_6_Texture);
-			}; break;
-			}
-
-			switch (OpponentPoints3_1)
-			{
-			case 1:
-			{
-				Mix_PlayChannel(-1, DiceRollingSound, 0);
-				Draw_CubeEdge(renderer, Cube_edge_1_RIGHT_Rect, Cube_edge_1_Texture);
-			}; break;
-
-			case 2:
-			{
-				Mix_PlayChannel(-1, DiceRollingSound, 0);
-				Draw_CubeEdge(renderer, Cube_edge_2_RIGHT_Rect, Cube_edge_2_Texture);
-
-			}; break;
-
-			case 3:
-			{
-				Mix_PlayChannel(-1, DiceRollingSound, 0);
-				Draw_CubeEdge(renderer, Cube_edge_3_RIGHT_Rect, Cube_edge_3_Texture);
-			}; break;
-
-			case 4:
-			{
-				Mix_PlayChannel(-1, DiceRollingSound, 0);
-				Draw_CubeEdge(renderer, Cube_edge_4_RIGHT_Rect, Cube_edge_4_Texture);
-			}; break;
-
-			case 5:
-			{
-				Mix_PlayChannel(-1, DiceRollingSound, 0);
-				Draw_CubeEdge(renderer, Cube_edge_5_RIGHT_Rect, Cube_edge_5_Texture);
-			}; break;
-
-			case 6:
-			{
-				Mix_PlayChannel(-1, DiceRollingSound, 0);
-				Draw_CubeEdge(renderer, Cube_edge_6_RIGHT_Rect, Cube_edge_6_Texture);
-			}; break;
-			}
-
-			SDL_RenderPresent(renderer);
-			SDL_Delay(2000);
 
 			SDL_RenderClear(renderer);
 			Draw_GameFON(renderer, GameFonRect, GameFonTexture);
 			SDL_RenderPresent(renderer);
 			SDL_Delay(1000);
 
-			OpponentPoints1_2 = rand() % (6 - 1 + 1) + 1;
-			OpponentPoints2_2 = rand() % (6 - 1 + 1) + 1;
-			OpponentPoints3_2 = rand() % (6 - 1 + 1) + 1;
-			OpponentSumPointsForFirstMove_2 = OpponentPoints1_2 + OpponentPoints2_2 + OpponentPoints3_2;
+			while (!Opponent1Quit)
+			{
+				SDL_PollEvent(&event);
+				if (event.type == SDL_QUIT)
+				{
+					Opponent1Quit = true;
+					quit = true;
+				}
 
-			switch (OpponentPoints1_2)
-			{
-			case 1:
-			{
-				Mix_PlayChannel(-1, DiceRollingSound, 0);
-				Draw_CubeEdge(renderer, Cube_edge_1_LEFT_Rect, Cube_edge_1_Texture);
-			}; break;
+				if ((event.type == SDL_KEYDOWN) && (event.key.keysym.sym == SDLK_r))
+				{
 
-			case 2:
-			{
-				Mix_PlayChannel(-1, DiceRollingSound, 0);
-				Draw_CubeEdge(renderer, Cube_edge_2_LEFT_Rect, Cube_edge_2_Texture);
-			}; break;
+					OpponentPoints1_1 = rand() % (6 - 1 + 1) + 1;
+					OpponentPoints2_1 = rand() % (6 - 1 + 1) + 1;
+					OpponentPoints3_1 = rand() % (6 - 1 + 1) + 1;
 
-			case 3:
-			{
-				Mix_PlayChannel(-1, DiceRollingSound, 0);
-				Draw_CubeEdge(renderer, Cube_edge_3_LEFT_Rect, Cube_edge_3_Texture);
-			}; break;
+					OpponentSumPointsForFirstMove_1 = OpponentPoints1_1 + OpponentPoints2_1 + OpponentPoints3_1;
 
-			case 4:
-			{
-				Mix_PlayChannel(-1, DiceRollingSound, 0);
-				Draw_CubeEdge(renderer, Cube_edge_4_LEFT_Rect, Cube_edge_4_Texture);
-			}; break;
+					switch (OpponentPoints1_1)
+					{
+					case 1:
+					{
+						Mix_PlayChannel(-1, DiceRollingSound, 0);
+						Draw_CubeEdge(renderer, Cube_edge_1_LEFT_Rect, Cube_edge_1_Texture);
+					}; break;
 
-			case 5:
-			{
-				Mix_PlayChannel(-1, DiceRollingSound, 0);
-				Draw_CubeEdge(renderer, Cube_edge_5_LEFT_Rect, Cube_edge_5_Texture);
-			}; break;
+					case 2:
+					{
+						Mix_PlayChannel(-1, DiceRollingSound, 0);
+						Draw_CubeEdge(renderer, Cube_edge_2_LEFT_Rect, Cube_edge_2_Texture);
+					}; break;
 
-			case 6:
-			{
-				Mix_PlayChannel(-1, DiceRollingSound, 0);
-				Draw_CubeEdge(renderer, Cube_edge_6_LEFT_Rect, Cube_edge_6_Texture);
-			}; break;
+					case 3:
+					{
+						Mix_PlayChannel(-1, DiceRollingSound, 0);
+						Draw_CubeEdge(renderer, Cube_edge_3_LEFT_Rect, Cube_edge_3_Texture);
+					}; break;
+
+					case 4:
+					{
+						Mix_PlayChannel(-1, DiceRollingSound, 0);
+						Draw_CubeEdge(renderer, Cube_edge_4_LEFT_Rect, Cube_edge_4_Texture);
+					}; break;
+
+					case 5:
+					{
+						Mix_PlayChannel(-1, DiceRollingSound, 0);
+						Draw_CubeEdge(renderer, Cube_edge_5_LEFT_Rect, Cube_edge_5_Texture);
+					}; break;
+
+					case 6:
+					{
+						Mix_PlayChannel(-1, DiceRollingSound, 0);
+						Draw_CubeEdge(renderer, Cube_edge_6_LEFT_Rect, Cube_edge_6_Texture);
+					}; break;
+					}
+
+					switch (OpponentPoints2_1)
+					{
+					case 1:
+					{
+						Mix_PlayChannel(-1, DiceRollingSound, 0);
+						Draw_CubeEdge(renderer, Cube_edge_1_MID_Rect, Cube_edge_1_Texture);
+					}; break;
+
+					case 2:
+					{
+						Mix_PlayChannel(-1, DiceRollingSound, 0);
+						Draw_CubeEdge(renderer, Cube_edge_2_MID_Rect, Cube_edge_2_Texture);
+					}; break;
+
+					case 3:
+					{
+						Mix_PlayChannel(-1, DiceRollingSound, 0);
+						Draw_CubeEdge(renderer, Cube_edge_3_MID_Rect, Cube_edge_3_Texture);
+					}; break;
+
+					case 4:
+					{
+						Mix_PlayChannel(-1, DiceRollingSound, 0);
+						Draw_CubeEdge(renderer, Cube_edge_4_MID_Rect, Cube_edge_4_Texture);
+					}; break;
+
+					case 5:
+					{
+						Mix_PlayChannel(-1, DiceRollingSound, 0);
+						Draw_CubeEdge(renderer, Cube_edge_6_MID_Rect, Cube_edge_6_Texture);
+					}; break;
+
+					case 6:
+					{
+						Mix_PlayChannel(-1, DiceRollingSound, 0);
+						Draw_CubeEdge(renderer, Cube_edge_6_MID_Rect, Cube_edge_6_Texture);
+					}; break;
+					}
+
+					switch (OpponentPoints3_1)
+					{
+					case 1:
+					{
+						Mix_PlayChannel(-1, DiceRollingSound, 0);
+						Draw_CubeEdge(renderer, Cube_edge_1_RIGHT_Rect, Cube_edge_1_Texture);
+					}; break;
+
+					case 2:
+					{
+						Mix_PlayChannel(-1, DiceRollingSound, 0);
+						Draw_CubeEdge(renderer, Cube_edge_2_RIGHT_Rect, Cube_edge_2_Texture);
+
+					}; break;
+
+					case 3:
+					{
+						Mix_PlayChannel(-1, DiceRollingSound, 0);
+						Draw_CubeEdge(renderer, Cube_edge_3_RIGHT_Rect, Cube_edge_3_Texture);
+					}; break;
+
+					case 4:
+					{
+						Mix_PlayChannel(-1, DiceRollingSound, 0);
+						Draw_CubeEdge(renderer, Cube_edge_4_RIGHT_Rect, Cube_edge_4_Texture);
+					}; break;
+
+					case 5:
+					{
+						Mix_PlayChannel(-1, DiceRollingSound, 0);
+						Draw_CubeEdge(renderer, Cube_edge_5_RIGHT_Rect, Cube_edge_5_Texture);
+					}; break;
+
+					case 6:
+					{
+						Mix_PlayChannel(-1, DiceRollingSound, 0);
+						Draw_CubeEdge(renderer, Cube_edge_6_RIGHT_Rect, Cube_edge_6_Texture);
+					}; break;
+					}
+
+					SDL_RenderPresent(renderer);
+					SDL_Delay(2000);
+
+					Opponent1Quit = true;
+				}
 			}
 
-			switch (OpponentPoints2_2)
-			{
-			case 1:
-			{
-				Mix_PlayChannel(-1, DiceRollingSound, 0);
-				Draw_CubeEdge(renderer, Cube_edge_1_MID_Rect, Cube_edge_1_Texture);
-			}; break;
+			if (quit == true)
+				break;
 
-			case 2:
-			{
-				Mix_PlayChannel(-1, DiceRollingSound, 0);
-				Draw_CubeEdge(renderer, Cube_edge_2_MID_Rect, Cube_edge_2_Texture);
-			}; break;
-
-			case 3:
-			{
-				Mix_PlayChannel(-1, DiceRollingSound, 0);
-				Draw_CubeEdge(renderer, Cube_edge_3_MID_Rect, Cube_edge_3_Texture);
-			}; break;
-
-			case 4:
-			{
-				Mix_PlayChannel(-1, DiceRollingSound, 0);
-				Draw_CubeEdge(renderer, Cube_edge_4_MID_Rect, Cube_edge_4_Texture);
-			}; break;
-
-			case 5:
-			{
-				Mix_PlayChannel(-1, DiceRollingSound, 0);
-				Draw_CubeEdge(renderer, Cube_edge_6_MID_Rect, Cube_edge_6_Texture);
-			}; break;
-
-			case 6:
-			{
-				Mix_PlayChannel(-1, DiceRollingSound, 0);
-				Draw_CubeEdge(renderer, Cube_edge_6_MID_Rect, Cube_edge_6_Texture);
-			}; break;
-			}
-
-			switch (OpponentPoints3_2)
-			{
-			case 1:
-			{
-				Mix_PlayChannel(-1, DiceRollingSound, 0);
-				Draw_CubeEdge(renderer, Cube_edge_1_RIGHT_Rect, Cube_edge_1_Texture);
-			}; break;
-
-			case 2:
-			{
-				Mix_PlayChannel(-1, DiceRollingSound, 0);
-				Draw_CubeEdge(renderer, Cube_edge_2_RIGHT_Rect, Cube_edge_2_Texture);
-
-			}; break;
-
-			case 3:
-			{
-				Mix_PlayChannel(-1, DiceRollingSound, 0);
-				Draw_CubeEdge(renderer, Cube_edge_3_RIGHT_Rect, Cube_edge_3_Texture);
-			}; break;
-
-			case 4:
-			{
-				Mix_PlayChannel(-1, DiceRollingSound, 0);
-				Draw_CubeEdge(renderer, Cube_edge_4_RIGHT_Rect, Cube_edge_4_Texture);
-			}; break;
-
-			case 5:
-			{
-				Mix_PlayChannel(-1, DiceRollingSound, 0);
-				Draw_CubeEdge(renderer, Cube_edge_5_RIGHT_Rect, Cube_edge_5_Texture);
-			}; break;
-
-			case 6:
-			{
-				Mix_PlayChannel(-1, DiceRollingSound, 0);
-				Draw_CubeEdge(renderer, Cube_edge_6_RIGHT_Rect, Cube_edge_6_Texture);
-			}; break;
-			}
-
+			SDL_RenderClear(renderer);
+			Draw_GameFON(renderer, GameFonRect, GameFonTexture);
+			SDL_RenderCopy(renderer, Opponent_turntextTexture, NULL, &Your_turntextRect);
 			SDL_RenderPresent(renderer);
-			SDL_Delay(2000);
+			SDL_Delay(1000);
+
+			SDL_RenderClear(renderer);
+			Draw_GameFON(renderer, GameFonRect, GameFonTexture);
+			SDL_RenderPresent(renderer);
+			SDL_Delay(1000);
+
+			while (!Opponent2Quit)
+			{
+				SDL_PollEvent(&event);
+				if (event.type == SDL_QUIT)
+				{
+					Opponent2Quit = true;
+					quit = true;
+				}
+
+				if ((event.type == SDL_KEYDOWN) && (event.key.keysym.sym == SDLK_r))
+				{
+					OpponentPoints1_2 = rand() % (6 - 1 + 1) + 1;
+					OpponentPoints2_2 = rand() % (6 - 1 + 1) + 1;
+					OpponentPoints3_2 = rand() % (6 - 1 + 1) + 1;
+
+					OpponentSumPointsForFirstMove_2 = OpponentPoints1_2 + OpponentPoints2_2 + OpponentPoints3_2;
+
+					switch (OpponentPoints1_2)
+					{
+					case 1:
+					{
+						Mix_PlayChannel(-1, DiceRollingSound, 0);
+						Draw_CubeEdge(renderer, Cube_edge_1_LEFT_Rect, Cube_edge_1_Texture);
+					}; break;
+
+					case 2:
+					{
+						Mix_PlayChannel(-1, DiceRollingSound, 0);
+						Draw_CubeEdge(renderer, Cube_edge_2_LEFT_Rect, Cube_edge_2_Texture);
+					}; break;
+
+					case 3:
+					{
+						Mix_PlayChannel(-1, DiceRollingSound, 0);
+						Draw_CubeEdge(renderer, Cube_edge_3_LEFT_Rect, Cube_edge_3_Texture);
+					}; break;
+
+					case 4:
+					{
+						Mix_PlayChannel(-1, DiceRollingSound, 0);
+						Draw_CubeEdge(renderer, Cube_edge_4_LEFT_Rect, Cube_edge_4_Texture);
+					}; break;
+
+					case 5:
+					{
+						Mix_PlayChannel(-1, DiceRollingSound, 0);
+						Draw_CubeEdge(renderer, Cube_edge_5_LEFT_Rect, Cube_edge_5_Texture);
+					}; break;
+
+					case 6:
+					{
+						Mix_PlayChannel(-1, DiceRollingSound, 0);
+						Draw_CubeEdge(renderer, Cube_edge_6_LEFT_Rect, Cube_edge_6_Texture);
+					}; break;
+					}
+
+					switch (OpponentPoints2_2)
+					{
+					case 1:
+					{
+						Mix_PlayChannel(-1, DiceRollingSound, 0);
+						Draw_CubeEdge(renderer, Cube_edge_1_MID_Rect, Cube_edge_1_Texture);
+					}; break;
+
+					case 2:
+					{
+						Mix_PlayChannel(-1, DiceRollingSound, 0);
+						Draw_CubeEdge(renderer, Cube_edge_2_MID_Rect, Cube_edge_2_Texture);
+					}; break;
+
+					case 3:
+					{
+						Mix_PlayChannel(-1, DiceRollingSound, 0);
+						Draw_CubeEdge(renderer, Cube_edge_3_MID_Rect, Cube_edge_3_Texture);
+					}; break;
+
+					case 4:
+					{
+						Mix_PlayChannel(-1, DiceRollingSound, 0);
+						Draw_CubeEdge(renderer, Cube_edge_4_MID_Rect, Cube_edge_4_Texture);
+					}; break;
+
+					case 5:
+					{
+						Mix_PlayChannel(-1, DiceRollingSound, 0);
+						Draw_CubeEdge(renderer, Cube_edge_6_MID_Rect, Cube_edge_6_Texture);
+					}; break;
+
+					case 6:
+					{
+						Mix_PlayChannel(-1, DiceRollingSound, 0);
+						Draw_CubeEdge(renderer, Cube_edge_6_MID_Rect, Cube_edge_6_Texture);
+					}; break;
+					}
+
+					switch (OpponentPoints3_2)
+					{
+					case 1:
+					{
+						Mix_PlayChannel(-1, DiceRollingSound, 0);
+						Draw_CubeEdge(renderer, Cube_edge_1_RIGHT_Rect, Cube_edge_1_Texture);
+					}; break;
+
+					case 2:
+					{
+						Mix_PlayChannel(-1, DiceRollingSound, 0);
+						Draw_CubeEdge(renderer, Cube_edge_2_RIGHT_Rect, Cube_edge_2_Texture);
+
+					}; break;
+
+					case 3:
+					{
+						Mix_PlayChannel(-1, DiceRollingSound, 0);
+						Draw_CubeEdge(renderer, Cube_edge_3_RIGHT_Rect, Cube_edge_3_Texture);
+					}; break;
+
+					case 4:
+					{
+						Mix_PlayChannel(-1, DiceRollingSound, 0);
+						Draw_CubeEdge(renderer, Cube_edge_4_RIGHT_Rect, Cube_edge_4_Texture);
+					}; break;
+
+					case 5:
+					{
+						Mix_PlayChannel(-1, DiceRollingSound, 0);
+						Draw_CubeEdge(renderer, Cube_edge_5_RIGHT_Rect, Cube_edge_5_Texture);
+					}; break;
+
+					case 6:
+					{
+						Mix_PlayChannel(-1, DiceRollingSound, 0);
+						Draw_CubeEdge(renderer, Cube_edge_6_RIGHT_Rect, Cube_edge_6_Texture);
+					}; break;
+					}
+
+					SDL_RenderPresent(renderer);
+					SDL_Delay(2000);
+
+					Opponent2Quit = true;
+				}
+			}
+
+			if (quit == true)
+				break;
 
 			SDL_RenderClear(renderer);
 			Draw_GameFON(renderer, GameFonRect, GameFonTexture);
@@ -799,6 +855,9 @@ void Game(SDL_Renderer*& renderer, Mix_Chunk* ButtonTapSound, Mix_Chunk* DiceRol
 
 			Point_Definition = false;
 		}
+
+		if (quit == true)
+			break;
 
 		if (YouMove == true)
 		{
@@ -1123,183 +1182,200 @@ void Game(SDL_Renderer*& renderer, Mix_Chunk* ButtonTapSound, Mix_Chunk* DiceRol
 			SDL_RenderPresent(renderer);
 			SDL_Delay(1000);
 
-			OpponentPoints1_1 = 0;
-			OpponentPoints2_1 = 0;
-			OpponentPoints3_1 = 0;
+			Opponent1Quit = false;
 
-			OpponentPoints1_1 = rand() % (6 - 1 + 1) + 1;
-			OpponentPoints2_1 = rand() % (6 - 1 + 1) + 1;
-			OpponentPoints3_1 = rand() % (6 - 1 + 1) + 1;
+			while (!Opponent1Quit)
+			{
+				SDL_PollEvent(&event);
+				if (event.type == SDL_QUIT)
+				{
+					Opponent1Quit = true;
+					quit = true;
+				}
 
-			if (OpponentPoints1_1 == POINT)
-			{
-				OpponentSumPoints_1 += 1;
-			}
-			if (OpponentPoints2_1 == POINT)
-			{
-				OpponentSumPoints_1 += 1;
-			}
-			if (OpponentPoints3_1 == POINT)
-			{
-				OpponentSumPoints_1 += 1;
-			}
-			if ((OpponentPoints1_1 == OpponentPoints2_1) && (OpponentPoints2_1 == OpponentPoints3_1))
-			{
-				OpponentSumPoints_1 += 5;
-			}
-			if ((OpponentPoints1_1 == OpponentPoints2_1) && (OpponentPoints2_1 == OpponentPoints3_1) && (OpponentPoints3_1 == POINT))
-			{
-				OpponentSumPoints_1 += 15;
-			}
-			if (OpponentSumPoints_1 >= 15)
-				OpponentSumPoints_1 = 15;
+				if ((event.type == SDL_KEYDOWN) && (event.key.keysym.sym == SDLK_r))
+				{
+					OpponentPoints1_1 = 0;
+					OpponentPoints2_1 = 0;
+					OpponentPoints3_1 = 0;
 
-			OpponentSumPoints_1;
-			_itoa_s(OpponentSumPoints_1, text, 10);
-			SDL_DestroyTexture(Opponent_1_SCORE_textTexture);
-			Opponent_1_SCORE_textTexture = get_POINT_text_texture(renderer, text, Point_Defenitiontext);
+					OpponentPoints1_1 = rand() % (6 - 1 + 1) + 1;
+					OpponentPoints2_1 = rand() % (6 - 1 + 1) + 1;
+					OpponentPoints3_1 = rand() % (6 - 1 + 1) + 1;
 
-			switch (OpponentPoints1_1)
-			{
-			case 1:
-			{
-				Mix_PlayChannel(-1, DiceRollingSound, 0);
-				Draw_CubeEdge(renderer, Cube_edge_1_LEFT_Rect, Cube_edge_1_Texture);
-			}; break;
+					if (OpponentPoints1_1 == POINT)
+					{
+						OpponentSumPoints_1 += 1;
+					}
+					if (OpponentPoints2_1 == POINT)
+					{
+						OpponentSumPoints_1 += 1;
+					}
+					if (OpponentPoints3_1 == POINT)
+					{
+						OpponentSumPoints_1 += 1;
+					}
+					if ((OpponentPoints1_1 == OpponentPoints2_1) && (OpponentPoints2_1 == OpponentPoints3_1))
+					{
+						OpponentSumPoints_1 += 5;
+					}
+					if ((OpponentPoints1_1 == OpponentPoints2_1) && (OpponentPoints2_1 == OpponentPoints3_1) && (OpponentPoints3_1 == POINT))
+					{
+						OpponentSumPoints_1 += 15;
+					}
+					if (OpponentSumPoints_1 >= 15)
+						OpponentSumPoints_1 = 15;
 
-			case 2:
-			{
-				Mix_PlayChannel(-1, DiceRollingSound, 0);
-				Draw_CubeEdge(renderer, Cube_edge_2_LEFT_Rect, Cube_edge_2_Texture);
-			}; break;
+					OpponentSumPoints_1;
+					_itoa_s(OpponentSumPoints_1, text, 10);
+					SDL_DestroyTexture(Opponent_1_SCORE_textTexture);
+					Opponent_1_SCORE_textTexture = get_POINT_text_texture(renderer, text, Point_Defenitiontext);
 
-			case 3:
-			{
-				Mix_PlayChannel(-1, DiceRollingSound, 0);
-				Draw_CubeEdge(renderer, Cube_edge_3_LEFT_Rect, Cube_edge_3_Texture);
-			}; break;
+					switch (OpponentPoints1_1)
+					{
+					case 1:
+					{
+						Mix_PlayChannel(-1, DiceRollingSound, 0);
+						Draw_CubeEdge(renderer, Cube_edge_1_LEFT_Rect, Cube_edge_1_Texture);
+					}; break;
 
-			case 4:
-			{
-				Mix_PlayChannel(-1, DiceRollingSound, 0);
-				Draw_CubeEdge(renderer, Cube_edge_4_LEFT_Rect, Cube_edge_4_Texture);
-			}; break;
+					case 2:
+					{
+						Mix_PlayChannel(-1, DiceRollingSound, 0);
+						Draw_CubeEdge(renderer, Cube_edge_2_LEFT_Rect, Cube_edge_2_Texture);
+					}; break;
 
-			case 5:
-			{
-				Mix_PlayChannel(-1, DiceRollingSound, 0);
-				Draw_CubeEdge(renderer, Cube_edge_5_LEFT_Rect, Cube_edge_5_Texture);
-			}; break;
+					case 3:
+					{
+						Mix_PlayChannel(-1, DiceRollingSound, 0);
+						Draw_CubeEdge(renderer, Cube_edge_3_LEFT_Rect, Cube_edge_3_Texture);
+					}; break;
 
-			case 6:
-			{
-				Mix_PlayChannel(-1, DiceRollingSound, 0);
-				Draw_CubeEdge(renderer, Cube_edge_6_LEFT_Rect, Cube_edge_6_Texture);
-			}; break;
-			}
+					case 4:
+					{
+						Mix_PlayChannel(-1, DiceRollingSound, 0);
+						Draw_CubeEdge(renderer, Cube_edge_4_LEFT_Rect, Cube_edge_4_Texture);
+					}; break;
 
-			switch (OpponentPoints2_1)
-			{
-			case 1:
-			{
-				Mix_PlayChannel(-1, DiceRollingSound, 0);
-				Draw_CubeEdge(renderer, Cube_edge_1_MID_Rect, Cube_edge_1_Texture);
-			}; break;
+					case 5:
+					{
+						Mix_PlayChannel(-1, DiceRollingSound, 0);
+						Draw_CubeEdge(renderer, Cube_edge_5_LEFT_Rect, Cube_edge_5_Texture);
+					}; break;
 
-			case 2:
-			{
-				Mix_PlayChannel(-1, DiceRollingSound, 0);
-				Draw_CubeEdge(renderer, Cube_edge_2_MID_Rect, Cube_edge_2_Texture);
-			}; break;
+					case 6:
+					{
+						Mix_PlayChannel(-1, DiceRollingSound, 0);
+						Draw_CubeEdge(renderer, Cube_edge_6_LEFT_Rect, Cube_edge_6_Texture);
+					}; break;
+					}
 
-			case 3:
-			{
-				Mix_PlayChannel(-1, DiceRollingSound, 0);
-				Draw_CubeEdge(renderer, Cube_edge_3_MID_Rect, Cube_edge_3_Texture);
-			}; break;
+					switch (OpponentPoints2_1)
+					{
+					case 1:
+					{
+						Mix_PlayChannel(-1, DiceRollingSound, 0);
+						Draw_CubeEdge(renderer, Cube_edge_1_MID_Rect, Cube_edge_1_Texture);
+					}; break;
 
-			case 4:
-			{
-				Mix_PlayChannel(-1, DiceRollingSound, 0);
-				Draw_CubeEdge(renderer, Cube_edge_4_MID_Rect, Cube_edge_4_Texture);
-			}; break;
+					case 2:
+					{
+						Mix_PlayChannel(-1, DiceRollingSound, 0);
+						Draw_CubeEdge(renderer, Cube_edge_2_MID_Rect, Cube_edge_2_Texture);
+					}; break;
 
-			case 5:
-			{
-				Mix_PlayChannel(-1, DiceRollingSound, 0);
-				Draw_CubeEdge(renderer, Cube_edge_6_MID_Rect, Cube_edge_6_Texture);
-			}; break;
+					case 3:
+					{
+						Mix_PlayChannel(-1, DiceRollingSound, 0);
+						Draw_CubeEdge(renderer, Cube_edge_3_MID_Rect, Cube_edge_3_Texture);
+					}; break;
 
-			case 6:
-			{
-				Mix_PlayChannel(-1, DiceRollingSound, 0);
-				Draw_CubeEdge(renderer, Cube_edge_6_MID_Rect, Cube_edge_6_Texture);
-			}; break;
-			}
+					case 4:
+					{
+						Mix_PlayChannel(-1, DiceRollingSound, 0);
+						Draw_CubeEdge(renderer, Cube_edge_4_MID_Rect, Cube_edge_4_Texture);
+					}; break;
 
-			switch (OpponentPoints3_1)
-			{
-			case 1:
-			{
-				Mix_PlayChannel(-1, DiceRollingSound, 0);
-				Draw_CubeEdge(renderer, Cube_edge_1_RIGHT_Rect, Cube_edge_1_Texture);
-			}; break;
+					case 5:
+					{
+						Mix_PlayChannel(-1, DiceRollingSound, 0);
+						Draw_CubeEdge(renderer, Cube_edge_6_MID_Rect, Cube_edge_6_Texture);
+					}; break;
 
-			case 2:
-			{
-				Mix_PlayChannel(-1, DiceRollingSound, 0);
-				Draw_CubeEdge(renderer, Cube_edge_2_RIGHT_Rect, Cube_edge_2_Texture);
+					case 6:
+					{
+						Mix_PlayChannel(-1, DiceRollingSound, 0);
+						Draw_CubeEdge(renderer, Cube_edge_6_MID_Rect, Cube_edge_6_Texture);
+					}; break;
+					}
 
-			}; break;
+					switch (OpponentPoints3_1)
+					{
+					case 1:
+					{
+						Mix_PlayChannel(-1, DiceRollingSound, 0);
+						Draw_CubeEdge(renderer, Cube_edge_1_RIGHT_Rect, Cube_edge_1_Texture);
+					}; break;
 
-			case 3:
-			{
-				Mix_PlayChannel(-1, DiceRollingSound, 0);
-				Draw_CubeEdge(renderer, Cube_edge_3_RIGHT_Rect, Cube_edge_3_Texture);
-			}; break;
+					case 2:
+					{
+						Mix_PlayChannel(-1, DiceRollingSound, 0);
+						Draw_CubeEdge(renderer, Cube_edge_2_RIGHT_Rect, Cube_edge_2_Texture);
 
-			case 4:
-			{
-				Mix_PlayChannel(-1, DiceRollingSound, 0);
-				Draw_CubeEdge(renderer, Cube_edge_4_RIGHT_Rect, Cube_edge_4_Texture);
-			}; break;
+					}; break;
 
-			case 5:
-			{
-				Mix_PlayChannel(-1, DiceRollingSound, 0);
-				Draw_CubeEdge(renderer, Cube_edge_5_RIGHT_Rect, Cube_edge_5_Texture);
-			}; break;
+					case 3:
+					{
+						Mix_PlayChannel(-1, DiceRollingSound, 0);
+						Draw_CubeEdge(renderer, Cube_edge_3_RIGHT_Rect, Cube_edge_3_Texture);
+					}; break;
 
-			case 6:
-			{
-				Mix_PlayChannel(-1, DiceRollingSound, 0);
-				Draw_CubeEdge(renderer, Cube_edge_6_RIGHT_Rect, Cube_edge_6_Texture);
-			}; break;
-			}
+					case 4:
+					{
+						Mix_PlayChannel(-1, DiceRollingSound, 0);
+						Draw_CubeEdge(renderer, Cube_edge_4_RIGHT_Rect, Cube_edge_4_Texture);
+					}; break;
 
-			SDL_RenderPresent(renderer);
-			SDL_Delay(2000);
+					case 5:
+					{
+						Mix_PlayChannel(-1, DiceRollingSound, 0);
+						Draw_CubeEdge(renderer, Cube_edge_5_RIGHT_Rect, Cube_edge_5_Texture);
+					}; break;
 
-			if (OpponentSumPoints_1 == 15)
-			{
-				Loose_Count += 1;
-			}
-				
-			OpponentMove_1 = false;
-			OpponentMove_2 = true;
+					case 6:
+					{
+						Mix_PlayChannel(-1, DiceRollingSound, 0);
+						Draw_CubeEdge(renderer, Cube_edge_6_RIGHT_Rect, Cube_edge_6_Texture);
+					}; break;
+					}
 
-			if (OpponentSumPoints_2 == 15)
-			{
-				OpponentMove_1 = false;
-				OpponentMove_2 = false;
-				YouMove = true;
-			}
+					SDL_RenderPresent(renderer);
+					SDL_Delay(2000);
 
-			if ((OpponentPoints1_1 == OpponentPoints2_1) && (OpponentPoints2_1 == OpponentPoints3_1))
-			{
-				YouMove = false;
-				OpponentMove_1 = true;
-				OpponentMove_2 = false;
+					if (OpponentSumPoints_1 == 15)
+					{
+						Loose_Count += 1;
+					}
+
+					OpponentMove_1 = false;
+					OpponentMove_2 = true;
+
+					if (OpponentSumPoints_2 == 15)
+					{
+						OpponentMove_1 = false;
+						OpponentMove_2 = false;
+						YouMove = true;
+					}
+
+					if ((OpponentPoints1_1 == OpponentPoints2_1) && (OpponentPoints2_1 == OpponentPoints3_1))
+					{
+						YouMove = false;
+						OpponentMove_1 = true;
+						OpponentMove_2 = false;
+					}
+
+					Opponent1Quit = true;
+				}
 			}
 		}
 
@@ -1328,176 +1404,192 @@ void Game(SDL_Renderer*& renderer, Mix_Chunk* ButtonTapSound, Mix_Chunk* DiceRol
 			SDL_RenderPresent(renderer);
 			SDL_Delay(1000);
 
-			OpponentPoints1_2 = 0;
-			OpponentPoints2_2 = 0;
-			OpponentPoints3_2 = 0;
+			Opponent2Quit = false;
 
-			OpponentPoints1_2 = rand() % (6 - 1 + 1) + 1;
-			OpponentPoints2_2 = rand() % (6 - 1 + 1) + 1;
-			OpponentPoints3_2 = rand() % (6 - 1 + 1) + 1;
+			while (!Opponent2Quit)
+			{
+				SDL_PollEvent(&event);
+				if (event.type == SDL_QUIT)
+				{
+					Opponent2Quit = true;
+					quit = true;
+				}
 
-			if (OpponentPoints1_2 == POINT)
-			{
-				OpponentSumPoints_2 += 1;
-			}
-			if (OpponentPoints2_2 == POINT)
-			{
-				OpponentSumPoints_2 += 1;
-			}
-			if (OpponentPoints3_2 == POINT)
-			{
-				OpponentSumPoints_2 += 1;
-			}
-			if ((OpponentPoints1_2 == OpponentPoints2_2) && (OpponentPoints2_2 == OpponentPoints3_2))
-			{
-				OpponentSumPoints_2 += 5;
-			}
-			if ((OpponentPoints1_2 == OpponentPoints2_2) && (OpponentPoints2_2 == OpponentPoints3_2) && (OpponentPoints3_2 == POINT))
-			{
-				OpponentSumPoints_2 += 15;
-			}
-			if (OpponentSumPoints_2 >= 15)
-				OpponentSumPoints_2 = 15;
+				if ((event.type == SDL_KEYDOWN) && (event.key.keysym.sym == SDLK_r))
+				{
+					OpponentPoints1_2 = 0;
+					OpponentPoints2_2 = 0;
+					OpponentPoints3_2 = 0;
 
-			OpponentSumPoints_2;
-			_itoa_s(OpponentSumPoints_2, text, 10);
-			SDL_DestroyTexture(Opponent_2_SCORE_textTexture);
-			Opponent_2_SCORE_textTexture = get_POINT_text_texture(renderer, text, Point_Defenitiontext);
+					OpponentPoints1_2 = rand() % (6 - 1 + 1) + 1;
+					OpponentPoints2_2 = rand() % (6 - 1 + 1) + 1;
+					OpponentPoints3_2 = rand() % (6 - 1 + 1) + 1;
 
-			switch (OpponentPoints1_2)
-			{
-			case 1:
-			{
-				Mix_PlayChannel(-1, DiceRollingSound, 0);
-				Draw_CubeEdge(renderer, Cube_edge_1_LEFT_Rect, Cube_edge_1_Texture);
-			}; break;
+					if (OpponentPoints1_2 == POINT)
+					{
+						OpponentSumPoints_2 += 1;
+					}
+					if (OpponentPoints2_2 == POINT)
+					{
+						OpponentSumPoints_2 += 1;
+					}
+					if (OpponentPoints3_2 == POINT)
+					{
+						OpponentSumPoints_2 += 1;
+					}
+					if ((OpponentPoints1_2 == OpponentPoints2_2) && (OpponentPoints2_2 == OpponentPoints3_2))
+					{
+						OpponentSumPoints_2 += 5;
+					}
+					if ((OpponentPoints1_2 == OpponentPoints2_2) && (OpponentPoints2_2 == OpponentPoints3_2) && (OpponentPoints3_2 == POINT))
+					{
+						OpponentSumPoints_2 += 15;
+					}
+					if (OpponentSumPoints_2 >= 15)
+						OpponentSumPoints_2 = 15;
 
-			case 2:
-			{
-				Mix_PlayChannel(-1, DiceRollingSound, 0);
-				Draw_CubeEdge(renderer, Cube_edge_2_LEFT_Rect, Cube_edge_2_Texture);
-			}; break;
+					OpponentSumPoints_2;
+					_itoa_s(OpponentSumPoints_2, text, 10);
+					SDL_DestroyTexture(Opponent_2_SCORE_textTexture);
+					Opponent_2_SCORE_textTexture = get_POINT_text_texture(renderer, text, Point_Defenitiontext);
 
-			case 3:
-			{
-				Mix_PlayChannel(-1, DiceRollingSound, 0);
-				Draw_CubeEdge(renderer, Cube_edge_3_LEFT_Rect, Cube_edge_3_Texture);
-			}; break;
+					switch (OpponentPoints1_2)
+					{
+					case 1:
+					{
+						Mix_PlayChannel(-1, DiceRollingSound, 0);
+						Draw_CubeEdge(renderer, Cube_edge_1_LEFT_Rect, Cube_edge_1_Texture);
+					}; break;
 
-			case 4:
-			{
-				Mix_PlayChannel(-1, DiceRollingSound, 0);
-				Draw_CubeEdge(renderer, Cube_edge_4_LEFT_Rect, Cube_edge_4_Texture);
-			}; break;
+					case 2:
+					{
+						Mix_PlayChannel(-1, DiceRollingSound, 0);
+						Draw_CubeEdge(renderer, Cube_edge_2_LEFT_Rect, Cube_edge_2_Texture);
+					}; break;
 
-			case 5:
-			{
-				Mix_PlayChannel(-1, DiceRollingSound, 0);
-				Draw_CubeEdge(renderer, Cube_edge_5_LEFT_Rect, Cube_edge_5_Texture);
-			}; break;
+					case 3:
+					{
+						Mix_PlayChannel(-1, DiceRollingSound, 0);
+						Draw_CubeEdge(renderer, Cube_edge_3_LEFT_Rect, Cube_edge_3_Texture);
+					}; break;
 
-			case 6:
-			{
-				Mix_PlayChannel(-1, DiceRollingSound, 0);
-				Draw_CubeEdge(renderer, Cube_edge_6_LEFT_Rect, Cube_edge_6_Texture);
-			}; break;
-			}
+					case 4:
+					{
+						Mix_PlayChannel(-1, DiceRollingSound, 0);
+						Draw_CubeEdge(renderer, Cube_edge_4_LEFT_Rect, Cube_edge_4_Texture);
+					}; break;
 
-			switch (OpponentPoints2_2)
-			{
-			case 1:
-			{
-				Mix_PlayChannel(-1, DiceRollingSound, 0);
-				Draw_CubeEdge(renderer, Cube_edge_1_MID_Rect, Cube_edge_1_Texture);
-			}; break;
+					case 5:
+					{
+						Mix_PlayChannel(-1, DiceRollingSound, 0);
+						Draw_CubeEdge(renderer, Cube_edge_5_LEFT_Rect, Cube_edge_5_Texture);
+					}; break;
 
-			case 2:
-			{
-				Mix_PlayChannel(-1, DiceRollingSound, 0);
-				Draw_CubeEdge(renderer, Cube_edge_2_MID_Rect, Cube_edge_2_Texture);
-			}; break;
+					case 6:
+					{
+						Mix_PlayChannel(-1, DiceRollingSound, 0);
+						Draw_CubeEdge(renderer, Cube_edge_6_LEFT_Rect, Cube_edge_6_Texture);
+					}; break;
+					}
 
-			case 3:
-			{
-				Mix_PlayChannel(-1, DiceRollingSound, 0);
-				Draw_CubeEdge(renderer, Cube_edge_3_MID_Rect, Cube_edge_3_Texture);
-			}; break;
+					switch (OpponentPoints2_2)
+					{
+					case 1:
+					{
+						Mix_PlayChannel(-1, DiceRollingSound, 0);
+						Draw_CubeEdge(renderer, Cube_edge_1_MID_Rect, Cube_edge_1_Texture);
+					}; break;
 
-			case 4:
-			{
-				Mix_PlayChannel(-1, DiceRollingSound, 0);
-				Draw_CubeEdge(renderer, Cube_edge_4_MID_Rect, Cube_edge_4_Texture);
-			}; break;
+					case 2:
+					{
+						Mix_PlayChannel(-1, DiceRollingSound, 0);
+						Draw_CubeEdge(renderer, Cube_edge_2_MID_Rect, Cube_edge_2_Texture);
+					}; break;
 
-			case 5:
-			{
-				Mix_PlayChannel(-1, DiceRollingSound, 0);
-				Draw_CubeEdge(renderer, Cube_edge_6_MID_Rect, Cube_edge_6_Texture);
-			}; break;
+					case 3:
+					{
+						Mix_PlayChannel(-1, DiceRollingSound, 0);
+						Draw_CubeEdge(renderer, Cube_edge_3_MID_Rect, Cube_edge_3_Texture);
+					}; break;
 
-			case 6:
-			{
-				Mix_PlayChannel(-1, DiceRollingSound, 0);
-				Draw_CubeEdge(renderer, Cube_edge_6_MID_Rect, Cube_edge_6_Texture);
-			}; break;
-			}
+					case 4:
+					{
+						Mix_PlayChannel(-1, DiceRollingSound, 0);
+						Draw_CubeEdge(renderer, Cube_edge_4_MID_Rect, Cube_edge_4_Texture);
+					}; break;
 
-			switch (OpponentPoints3_2)
-			{
-			case 1:
-			{
-				Mix_PlayChannel(-1, DiceRollingSound, 0);
-				Draw_CubeEdge(renderer, Cube_edge_1_RIGHT_Rect, Cube_edge_1_Texture);
-			}; break;
+					case 5:
+					{
+						Mix_PlayChannel(-1, DiceRollingSound, 0);
+						Draw_CubeEdge(renderer, Cube_edge_6_MID_Rect, Cube_edge_6_Texture);
+					}; break;
 
-			case 2:
-			{
-				Mix_PlayChannel(-1, DiceRollingSound, 0);
-				Draw_CubeEdge(renderer, Cube_edge_2_RIGHT_Rect, Cube_edge_2_Texture);
+					case 6:
+					{
+						Mix_PlayChannel(-1, DiceRollingSound, 0);
+						Draw_CubeEdge(renderer, Cube_edge_6_MID_Rect, Cube_edge_6_Texture);
+					}; break;
+					}
 
-			}; break;
+					switch (OpponentPoints3_2)
+					{
+					case 1:
+					{
+						Mix_PlayChannel(-1, DiceRollingSound, 0);
+						Draw_CubeEdge(renderer, Cube_edge_1_RIGHT_Rect, Cube_edge_1_Texture);
+					}; break;
 
-			case 3:
-			{
-				Mix_PlayChannel(-1, DiceRollingSound, 0);
-				Draw_CubeEdge(renderer, Cube_edge_3_RIGHT_Rect, Cube_edge_3_Texture);
-			}; break;
+					case 2:
+					{
+						Mix_PlayChannel(-1, DiceRollingSound, 0);
+						Draw_CubeEdge(renderer, Cube_edge_2_RIGHT_Rect, Cube_edge_2_Texture);
 
-			case 4:
-			{
-				Mix_PlayChannel(-1, DiceRollingSound, 0);
-				Draw_CubeEdge(renderer, Cube_edge_4_RIGHT_Rect, Cube_edge_4_Texture);
-			}; break;
+					}; break;
 
-			case 5:
-			{
-				Mix_PlayChannel(-1, DiceRollingSound, 0);
-				Draw_CubeEdge(renderer, Cube_edge_5_RIGHT_Rect, Cube_edge_5_Texture);
-			}; break;
+					case 3:
+					{
+						Mix_PlayChannel(-1, DiceRollingSound, 0);
+						Draw_CubeEdge(renderer, Cube_edge_3_RIGHT_Rect, Cube_edge_3_Texture);
+					}; break;
 
-			case 6:
-			{
-				Mix_PlayChannel(-1, DiceRollingSound, 0);
-				Draw_CubeEdge(renderer, Cube_edge_6_RIGHT_Rect, Cube_edge_6_Texture);
-			}; break;
-			}
+					case 4:
+					{
+						Mix_PlayChannel(-1, DiceRollingSound, 0);
+						Draw_CubeEdge(renderer, Cube_edge_4_RIGHT_Rect, Cube_edge_4_Texture);
+					}; break;
 
-			SDL_RenderPresent(renderer);
-			SDL_Delay(2000);
+					case 5:
+					{
+						Mix_PlayChannel(-1, DiceRollingSound, 0);
+						Draw_CubeEdge(renderer, Cube_edge_5_RIGHT_Rect, Cube_edge_5_Texture);
+					}; break;
 
-			if (OpponentSumPoints_2 == 15)
-			{
-				Loose_Count += 1;
-			}
+					case 6:
+					{
+						Mix_PlayChannel(-1, DiceRollingSound, 0);
+						Draw_CubeEdge(renderer, Cube_edge_6_RIGHT_Rect, Cube_edge_6_Texture);
+					}; break;
+					}
 
-			OpponentMove_2 = false;
-			YouMove = true;
+					SDL_RenderPresent(renderer);
+					SDL_Delay(2000);
 
-			if ((OpponentPoints1_2 == OpponentPoints2_2) && (OpponentPoints2_2 == OpponentPoints3_2))
-			{
-				YouMove = false;
-				OpponentMove_1 = false;
-				OpponentMove_2 = true;
+					if (OpponentSumPoints_2 == 15)
+					{
+						Loose_Count += 1;
+					}
+
+					OpponentMove_2 = false;
+					YouMove = true;
+
+					if ((OpponentPoints1_2 == OpponentPoints2_2) && (OpponentPoints2_2 == OpponentPoints3_2))
+					{
+						YouMove = false;
+						OpponentMove_1 = false;
+						OpponentMove_2 = true;
+					}
+					Opponent2Quit = true;
+				}
 			}
 		}
 		

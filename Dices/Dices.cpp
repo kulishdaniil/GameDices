@@ -60,7 +60,7 @@ int Is_Button_Tap(int x, int y)
 
 bool Is_ButtonRules_Tap(int x, int y)
 {
-    if ((x > SCREEN_WIDTH - ButtonsSizeX - 50 && x < SCREEN_WIDTH - 50) && (y > SCREEN_HEIGHT - 25 - ButtonsSizeY && y < SCREEN_HEIGHT - 25))
+    if ((x > SCREEN_WIDTH - ButtonsSizeX - 50 && x < SCREEN_WIDTH - 50) && (y > SCREEN_HEIGHT - 10 - ButtonsSizeY && y < SCREEN_HEIGHT - 25))
         return true;
     return false;
 }
@@ -121,7 +121,7 @@ int main(int argc, char** argv)
     SDL_SetColorKey(MainMenuExitRulesButton, SDL_TRUE, SDL_MapRGB(MainMenuExitRulesButton->format, 255, 255, 255));
     SDL_Texture* MainMenuExitRulesButtonTexture = SDL_CreateTextureFromSurface(renderer, MainMenuExitRulesButton);
     SDL_FreeSurface(MainMenuExitRulesButton);
-    SDL_Rect MainMenuExitRulesButtonRect = { SCREEN_WIDTH - 50 - ButtonsSizeX, SCREEN_HEIGHT - 25 - ButtonsSizeY, ButtonsSizeX, ButtonsSizeY };
+    SDL_Rect MainMenuExitRulesButtonRect = { SCREEN_WIDTH - 50 - ButtonsSizeX, SCREEN_HEIGHT - 10 - ButtonsSizeY, ButtonsSizeX, ButtonsSizeY };
     
 
     int MainMenuvolume = MIX_MAX_VOLUME;
